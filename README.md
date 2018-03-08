@@ -1,21 +1,26 @@
 ## Kontenery Docker na serwerze Sigma
 
-Agenda
-Docker overview -  https://docs.docker.com/engine/docker-overview/#the-docker-platform
-Docker-machine overview - https://docs.docker.com/machine/overview/
-Docker-compose overview - https://docs.docker.com/compose/overview/
-Docker example for Rails development - https://docs.docker.com/compose/rails/#define-the-project
+* Docker overview -  https://docs.docker.com/engine/docker-overview/#the-docker-platform
+* Docker-machine overview - https://docs.docker.com/machine/overview/
+* Docker-compose overview - https://docs.docker.com/compose/overview/
+* Docker example for Rails development - https://docs.docker.com/compose/rails/#define-the-project
 
-Przydatne linki: 
-    https://www.codeschool.com/courses/try-docker
+Przydatne linki:
+
+* https://www.codeschool.com/courses/try-docker
 
 Docker machine:
+
+```sh
 export MACHINE_STORAGE_PATH=/tmp/st/.docker
 docker-machine create default
 docker-machine env
 eval $(docker-machine env)
+```
 
-Create Dockerfile:
+Create _Dockerfile_:
+
+```sh
 FROM ruby:2.5.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 RUN mkdir /myapp
@@ -24,15 +29,24 @@ COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 COPY . /myapp
+```
 
-Create Gemfile:
+Create _Gemfile_:
+
+```ruby
 source 'https://rubygems.org'
-gem 'rails', '= 5.1.5'
+gem 'rails', '= 5.2.0'
+```
 
-Touch Gemfile.lock:
+Touch _Gemfile.lock_:
+
+```sh
 touch Gemfile.lock
+```
 
-Create docker-compose.yml:
+Create _docker-compose.yml_:
+
+```yaml
 version: '3'
 services:
   db:
@@ -46,13 +60,19 @@ services:
       - "3000:3000"
     depends_on:
       - db
+```
 
 Build docker images:
+
+```sh
 docker-compose build
+```
 
-Rails configuration
+Rails configuration:
 
-Replace content `config/database.yml`:
+* Replace content `config/database.yml`:
+
+```yaml
 default: &default
   adapter: postgresql
   host: db
@@ -64,24 +84,29 @@ development:
   <<: *default
   database: myapp_development
 
-
 test:
   <<: *default
   database: myapp_test
+```
 
 Run:
+
+```sh
 docker-compose up
+```
 
 Create DB:
-docker-compose run web rake db:create
 
-Pushing Docker image to Docker Cloud
+```sh
+docker-compose run web rake db:create
+```
 
 Push docker image to Docker could:
+
+```sh
 export DOCKER_ID_USER="username"
 docker tag my_image $DOCKER_ID_USER/my_image
 docker push $DOCKER_ID_USER/my_image
+```
 
-mongo:
-https://hub.docker.com/_/mongo/
-
+[Mongo](https://hub.docker.com/_/mongo/).
