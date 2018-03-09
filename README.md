@@ -1,9 +1,12 @@
 ## Kontenery Docker na serwerze Sigma
 
-* Docker overview -  https://docs.docker.com/engine/docker-overview/#the-docker-platform
-* Docker-machine overview - https://docs.docker.com/machine/overview/
-* Docker-compose overview - https://docs.docker.com/compose/overview/
-* Docker example for Rails development - https://docs.docker.com/compose/rails/#define-the-project
+* [Docker overview](https://docs.docker.com/engine/docker-overview/)
+* [Docker-machine overview](https://docs.docker.com/machine/overview/)
+* [Docker-compose overview](https://docs.docker.com/compose/overview/)
+* [Samples](https://docs.docker.com/samples/):
+  * [Docker example for Rails development](https://docs.docker.com/compose/rails/)
+  * [Mongo](https://docs.docker.com/samples/library/mongo/);
+    [zob. też](https://hub.docker.com/_/mongo/).
 
 Przydatne linki:
 
@@ -12,7 +15,7 @@ Przydatne linki:
 Docker machine:
 
 ```sh
-export MACHINE_STORAGE_PATH=/tmp/st/.docker
+export MACHINE_STORAGE_PATH=/tmp/<unikalne id>/.docker
 docker-machine create default
 docker-machine env
 eval $(docker-machine env)
@@ -98,18 +101,16 @@ docker-compose up
 Create DB:
 
 ```sh
-docker-compose run web rake db:create
+docker-compose run web rails db:create
 ```
 
-Push docker image to Docker could:
+Push docker image to Docker Hub
 
 ```sh
 export DOCKER_ID_USER="username"
 docker tag my_image $DOCKER_ID_USER/my_image
 docker push $DOCKER_ID_USER/my_image
 ```
-
-[Mongo](https://hub.docker.com/_/mongo/).
 
 
 ## Machine & Compose – local installations
