@@ -1,4 +1,4 @@
-## Kontenery Docker na serwerze Sigma
+## Kontenery Docker na komputerach w laboratoriach
 
 * [Docker overview](https://docs.docker.com/engine/docker-overview/)
 * [Docker-machine overview](https://docs.docker.com/machine/overview/)
@@ -104,7 +104,7 @@ Create DB:
 docker-compose run web rails db:create
 ```
 
-Push docker image to Docker Hub
+Push docker image to Docker Hub:
 
 ```sh
 export DOCKER_ID_USER="username"
