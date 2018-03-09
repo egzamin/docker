@@ -110,3 +110,32 @@ docker push $DOCKER_ID_USER/my_image
 ```
 
 [Mongo](https://hub.docker.com/_/mongo/).
+
+
+## Machine & Compose – local installations
+
+[Docker Machine](https://docs.docker.com/machine/install-machine/).
+
+```sh
+curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` \
+> /tmp/docker-machine && install /tmp/docker-machine $HOME/bin/docker-machine
+docker-machine version
+```
+
+```sh
+mkdir -p $HOME/.bash_completion.d
+scripts=(docker-machine-prompt.bash docker-machine-wrapper.bash docker-machine.bash)
+for i in "${scripts[@]}"; do
+  wget https://raw.githubusercontent.com/docker/machine/v0.14.0/contrib/completion/bash/${i} \
+      -P $HOME/.bash_completion.d
+done
+```
+
+[Docker Compose](https://docs.docker.com/compose/install/).
+
+```sh
+curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` \
+  -o $HOME/bin/docker-compose
+chmod 755 $HOME/bin/docker-compose
+docker-compose version
+```
