@@ -1,6 +1,7 @@
 ## Kontenery Docker na komputerach w laboratoriach
 
 * [Docker overview](https://docs.docker.com/engine/docker-overview/)
+* [Get started with Docker](https://docs.docker.com/get-started/)
 * [Docker-machine overview](https://docs.docker.com/machine/overview/)
 * [Docker-compose overview](https://docs.docker.com/compose/overview/)
 * [Samples](https://docs.docker.com/samples/):
