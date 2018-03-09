@@ -69,6 +69,8 @@ services:
 Build docker images:
 
 ```sh
+docker-compose run web rails new . --force --database=postgresql
+
 docker-compose build
 ```
 
