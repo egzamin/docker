@@ -39,7 +39,7 @@ Create _Gemfile_:
 
 ```ruby
 source 'https://rubygems.org'
-gem 'rails', '= 5.2.0'
+gem 'rails', '= 5.2.0.rc1'
 ```
 
 Touch _Gemfile.lock_:
@@ -69,6 +69,8 @@ services:
 Build docker images:
 
 ```sh
+docker-compose run web rails new . --force --database=postgresql
+
 docker-compose build
 ```
 
