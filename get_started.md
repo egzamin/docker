@@ -1,5 +1,11 @@
 ## Get Started
 
+```sh
+docker image rm $(docker image ls -a -q)   # Remove all images from this machine
+docker container rm $(docker container ls -a -q)         # Remove all containers
+```
+
+
 ### Containers
 
 ```bash
