@@ -42,6 +42,67 @@ docker stack rm <appname>                             # Tear down an application
 docker swarm leave --force      # Take down a single node swarm from the manager
 ```
 
+## Code School
+
+```sh
+docker image build -t web-server:1.0 .
+
+docker run -p 80:80 httpd2:1.0
+
+docker imags ls
+
+curl localhost:80/page.html
+docker container cp page.html elegant_noether:/usr/local/apache2/htdocs/
+
+curl localhost:80/page.html
+```
+
+Update _Dockerfile_ (add COPY ...).
+```text
+FROM httpd:2.4
+EXPOSE 80
+RUN apt-get update && apt-get install -y fortunes
+COPY page.html /usr/local/apache2/htdocs/
+LABEL maintainer="moby-dock@example.com"
+```
+
+```sh
+docker image build -t web-server:1.1 .
+docker container run --detach -p 80:80 web-server:1.1
+curl localhost:80/page.html
+```
+
+### Creating a Volume
+
+The first two approaches involved copying a file into a container. But as soon
+as the container is modified and stopped, all of those changes disappear. This
+is a problem if we’re using a container for local development, and one way to
+fix this problem is to use a data volume to create a connection between files on
+our local computer (host) and the filesystem in the container.
+
+Create a link between the folder `/my-files` on your host machine and the
+`htdocs` folder in the container.
+```sh
+docker run -d -p 80:80 -v /my-files:/usr/local/apache2/htdocs web-server:1.1
+```
+This command also runs the container in the background.
+
+Type code below to get a shell in the container.
+```sh
+docker image ls
+
+docker container exec -it elegant_noether /bin/bash
+
+cd /usr/local/apache2/htdocs
+ls -la
+```
+
+
+## [Build a Node App With Postgres and Docker]((https://www.codeschool.com/screencasts/build-a-node-app-with-postgres-and-docker))
+
+* [Watch Us Build Simple Node App With Docker](https://github.com/codeschool/WatchUsBuild-SimpleNodeAppWithDocker)
+* [Portainer](https://github.com/portainer/portainer) – simple management UI for Docker
+
 
 ## Mac OS stuff
 
