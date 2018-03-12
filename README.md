@@ -1,19 +1,32 @@
 ## Kontenery Docker na komputerach w laboratoriach
 
+Kurs na [Code School](https://www.codeschool.com/):
+
+* [Try Docker](https://www.codeschool.com/courses/try-docker)
+
+Official images on Docker Hub:
+
+* [Ruby](https://hub.docker.com/_/ruby/)
+* [Mongo](https://hub.docker.com/_/mongo/)
+
+Bitnami images:
+
+* [Rails](https://hub.docker.com/r/bitnami/rails/)
+* [Ruby](https://hub.docker.com/r/bitnami/ruby/)
+* [MongoDB](https://hub.docker.com/r/bitnami/mongodb/)
+
+Dokumentacja, samouczki, przykłady:
+
 * [Docker overview](https://docs.docker.com/engine/docker-overview/)
 * [Get started with Docker](https://docs.docker.com/get-started/)
 * [Docker-machine overview](https://docs.docker.com/machine/overview/)
 * [Docker-compose overview](https://docs.docker.com/compose/overview/)
 * [Samples](https://docs.docker.com/samples/):
   * [Docker example for Rails development](https://docs.docker.com/compose/rails/)
-  * [Mongo](https://docs.docker.com/samples/library/mongo/);
-    [zob. też](https://hub.docker.com/_/mongo/).
+  * [Mongo](https://docs.docker.com/samples/library/mongo/)
 
-Przydatne linki:
 
-* https://www.codeschool.com/courses/try-docker
-
-Docker machine:
+## TODO: Docker Machine
 
 ```sh
 export MACHINE_STORAGE_PATH=/tmp/<unikalne id>/.docker
@@ -23,7 +36,6 @@ eval $(docker-machine env)
 ```
 
 Create _Dockerfile_:
-
 ```sh
 FROM ruby:2.5.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
@@ -36,20 +48,19 @@ COPY . /myapp
 ```
 
 Create _Gemfile_:
-
 ```ruby
 source 'https://rubygems.org'
 gem 'rails', '= 5.2.0.rc1'
 ```
 
 Touch _Gemfile.lock_:
-
 ```sh
 touch Gemfile.lock
 ```
 
-Create _docker-compose.yml_:
+## Docker Compose
 
+Create _docker-compose.yml_:
 ```yaml
 version: '3'
 services:
@@ -70,7 +81,6 @@ Build docker images:
 
 ```sh
 docker-compose run web rails new . --force --database=postgresql
-
 docker-compose build
 ```
 
@@ -96,36 +106,36 @@ test:
 ```
 
 Run:
-
 ```sh
 docker-compose up
 ```
 
-Create DB:
-
+Create Postgres database:
 ```sh
 docker-compose run web rails db:create
 ```
 
-Push docker image to Docker Hub:
+Finally, push docker image to Docker Hub:
 
 ```sh
+docker image ls --all
+
 export DOCKER_ID_USER="username"
 docker tag my_image $DOCKER_ID_USER/my_image
 docker push $DOCKER_ID_USER/my_image
 ```
 
 
-## Machine & Compose – local installations
+## Local installation of Docker Machine & Compose
 
 [Docker Machine](https://docs.docker.com/machine/install-machine/).
-
 ```sh
 curl -L https://github.com/docker/machine/releases/download/v0.14.0/docker-machine-`uname -s`-`uname -m` \
 > /tmp/docker-machine && install /tmp/docker-machine $HOME/bin/docker-machine
 docker-machine version
 ```
 
+Install Bash completions for the _docker-machine_ program.
 ```sh
 mkdir -p $HOME/.bash_completion.d
 scripts=(docker-machine-prompt.bash docker-machine-wrapper.bash docker-machine.bash)
@@ -136,7 +146,6 @@ done
 ```
 
 [Docker Compose](https://docs.docker.com/compose/install/).
-
 ```sh
 curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` \
   -o $HOME/bin/docker-compose
