@@ -32,32 +32,44 @@ Po zalogowaniu się na swoje konto, polecenie:
 ```sh
 echo $MACHINE_STORAGE_PATH
 ```
-powinno wypisać na terminalu napis podobny do `/tmp/xxx/.docker`
+powinno wypisać na terminalu napis podobny do `/tmp/xxx/.docker`.
+Oczywiście, można zawsze samemu wyeksportować zmienną `MACHINE_STORAGE_PATH`:
+```
+export MACHINE_STORAGE_PATH=/tmp/abc/.docker
+```
 
-Następnie wykonujemy te polecenia:
+Zanim zaczniemy ściągać obrazy, tworzyć kontenery itd. musimy wykonać te
+polecenia (albo dopisać je do pliku startowego powłoki Bash):
 ```sh
-# Możemy samemu wyekportować zmienną MACHINE_STORAGE_PATH
-# export MACHINE_STORAGE_PATH=/tmp/<your login>/.docker
 docker-machine create default
 docker-machine env # sprawdzamy jakie wartości mają zmienne z których korzystają klienci Dockera
 eval $(docker-machine env) # zapisujemy je w środowisku
 ```
-Wykonanie wszystkich poleceń zajmuje ok 1-3 minut.
+**Uwaga** Wykonanie pierwszego polecenia zajmuje ok 1-3 minut (w lab. 109).
 
-Teraz możemy ściągnąć kilka obrazów z [Docker Hub](https://hub.docker.com/):
+Na początek, można ściągnąć kilka obrazów z [Docker Hub](https://hub.docker.com/):
 ```sh
 docker pull alpine:latest
 docker pull nginx:latest
-
-docker images
 ```
+To polecenie pokaże jak duże są te obrazy
+```sh
+docker images
+# nginx   latest  e548f1a579cf  3 weeks ago   109.00MB
+# alpine  latest  3fd9065eaf02  2 months ago    4.15MB
+```
+Niektórych może zdziwić, że kompletny dystrybucja linux „Alpine Linux”
+może zająć ok. 5 MB!
 
-Jeśli coś poszło nie tak to możemy zacząć jeszcze raz usuwając
-maszynę `default`:
+Jeśli coś poszło nie tak to zawsze można zacząć od początku usuwając maszynę
+`default`:
 ```sh
 docker-machine rm default
 ```
 
+## Kontynuacja dla „Technologie NoSQL”
+
+## Kontynuacja dla „Architektura serwisów internetowych”
 
 ## Docker Compose
 
