@@ -26,14 +26,33 @@ Dokumentacja, samouczki, przykłady:
   * [Mongo](https://docs.docker.com/samples/library/mongo/)
 
 
-## TODO: Docker Machine
+## Docker Machine w laboratoriach
 
+Po zalogowaniu się na swoje konto, polecenie
 ```sh
-export MACHINE_STORAGE_PATH=/tmp/<unikalne id>/.docker
+echo $MACHINE_STORAGE_PATH
+```
+powinno wypisać na terminalu napis podobny do `/tmp/xxx/.docker`
+
+Następnie wykonujemy te polecenia:
+```sh
+# Możemy samemu wyekportować zmienną MACHINE_STORAGE_PATH
+# export MACHINE_STORAGE_PATH=/tmp/<your login>/.docker
 docker-machine create default
 docker-machine env
 eval $(docker-machine env)
 ```
+Wykonanie wszystkich poleceń zajmuje ok 1-3 minut.
+
+Teraz możemy ściągnąć kilka obrazów z [Docker Hub](https://hub.docker.com/):
+```sh
+docker pull alpine:latest
+docker pull nginx:latest
+```
+
+## Docker Compose
+
+**TODO**
 
 Create _Dockerfile_:
 ```sh
