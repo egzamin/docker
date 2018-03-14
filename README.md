@@ -39,7 +39,7 @@ Następnie wykonujemy te polecenia:
 # Możemy samemu wyekportować zmienną MACHINE_STORAGE_PATH
 # export MACHINE_STORAGE_PATH=/tmp/<your login>/.docker
 docker-machine create default
-docker-machine env
+docker-machine env # sprawdzamy
 eval $(docker-machine env)
 ```
 Wykonanie wszystkich poleceń zajmuje ok 1-3 minut.
@@ -49,6 +49,13 @@ Teraz możemy ściągnąć kilka obrazów z [Docker Hub](https://hub.docker.com/
 docker pull alpine:latest
 docker pull nginx:latest
 ```
+
+Jeśli coś poszło nie tak to możemy zacząć jeszcze raz usuwając
+maszynę `default`:
+```sh
+docker-machine rm default
+```
+
 
 ## Docker Compose
 
