@@ -28,7 +28,7 @@ Dokumentacja, samouczki, przykłady:
 
 ## Docker Machine w laboratoriach
 
-Po zalogowaniu się na swoje konto, polecenie
+Po zalogowaniu się na swoje konto, polecenie:
 ```sh
 echo $MACHINE_STORAGE_PATH
 ```
@@ -39,8 +39,8 @@ Następnie wykonujemy te polecenia:
 # Możemy samemu wyekportować zmienną MACHINE_STORAGE_PATH
 # export MACHINE_STORAGE_PATH=/tmp/<your login>/.docker
 docker-machine create default
-docker-machine env # sprawdzamy
-eval $(docker-machine env)
+docker-machine env # sprawdzamy jakie wartości mają zmienne z których korzystają klienci Dockera
+eval $(docker-machine env) # zapisujemy je w środowisku
 ```
 Wykonanie wszystkich poleceń zajmuje ok 1-3 minut.
 
