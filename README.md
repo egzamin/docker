@@ -48,6 +48,8 @@ Teraz możemy ściągnąć kilka obrazów z [Docker Hub](https://hub.docker.com/
 ```sh
 docker pull alpine:latest
 docker pull nginx:latest
+
+docker images
 ```
 
 Jeśli coś poszło nie tak to możemy zacząć jeszcze raz usuwając
