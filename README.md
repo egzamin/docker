@@ -67,7 +67,7 @@ Jeśli coś poszło nie tak to zawsze można zacząć od początku usuwając mas
 docker-machine rm default
 ```
 
-## Image => Container
+## Image ➨ Container
 
 Sprawdzanie instalacji w laboratoriach zakończymy uruchomieniem
 serwera [Nginx](https://hub.docker.com/_/nginx/)
