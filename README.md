@@ -67,6 +67,38 @@ Jeśli coś poszło nie tak to zawsze można zacząć od początku usuwając mas
 docker-machine rm default
 ```
 
+## Image => Container
+
+Sprawdzanie instalacji w laboratoriach zakończymy uruchomieniem
+serwera [Nginx](https://hub.docker.com/_/nginx/)
+ z oficjalnego obrazu, który pobierzemy z [Docker Hub](https://hub.docker.com/):
+```sh
+mkdir -p ~/my-docker/my-nginx
+cd ~/my-docker/my-nginx
+docker run --detach \
+  --name my-nginx \
+  --publish 80:80 \
+  --volume ~/my-docker/my-nginx:/usr/share/nginx/html \
+  nginx:latest
+```
+
+Sprawdzamy, czy Nginx działa:
+```sh
+curl localhost:80
+```
+
+TODO:<br>
+Tworzymy plik _~/my-docker/my-nginx/index.html_ i wpisujemy do niego co nieco
+kodu HTML. Następnie, ponownie wykonujemy polecenie z `curl` powyżej.
+
+TODO:
+<br>Opisać te polecenia.
+```sh
+docker container ls
+docker stop my-nginx
+docker rm my-nginx
+```
+
 
 ## Kontynuacja dla „Technologie NoSQL”
 
