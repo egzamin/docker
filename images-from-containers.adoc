@@ -24,4 +24,17 @@ docker commit -a "@wbzyl" -m "Added git, man, and manpages" image-dev ubuntu-man
 
 docker images
 docker run --rm ubuntu-man-git git version
+
+docker run --rm ubuntu-man-git
+# nothing appears to happen …
+
+docker run --name command-git --entrypoint git ubuntu-man-git
+docker ps -a
+docker commit -a "@wbzyl" -m "Set CMD git" command-git ubuntu-git
+
+docker rm -vf command-git
+
+docker run --name command-git ubuntu-git version
+#=> git version 2.7.4
+
 ----
