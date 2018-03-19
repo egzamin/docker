@@ -1,0 +1,26 @@
+# Building images from containers
+:source-highlighter: pygments
+:pygments-style: manni
+:icons: font
+:figure-caption!:
+
+[source,bash]
+----
+docker run -it --name image-dev ubuntu:latest /bin/bash
+# these commands are run inside container
+apt-get update
+apt-get install -y git manpages manpages-dev
+man apt-get
+git version
+exit
+
+# these commands are run on the host
+docker images
+docker ps -a
+
+docker diff image-dev
+docker commit -a "@wbzyl" -m "Added git, man, and manpages" image-dev ubuntu-man-git
+
+docker images
+docker run --rm ubuntu-man-git git version
+----
