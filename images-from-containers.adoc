@@ -49,3 +49,27 @@ docker run --name command-git ubuntu-git version
 ----
 TODO
 ----
+
+
+## Pushing new image to https://docs.docker.com/docker-cloud/builds/push-images/[Docker Hub]
+
+[source,bash]
+----
+docker images
+# REPOSITORY  TAG     IMAGE ID      CREATED         SIZE
+# ubuntu-git  latest  a097c25b3916  17 minutes ago  256MB
+
+docker login
+
+export DOCKER_ID_USER="wbzyl" # insert your Docker Hub login
+docker tag ubuntu-git $DOCKER_ID_USER/ubuntu-git
+docker push $DOCKER_ID_USER/ubuntu-git
+# The push refers to repository [docker.io/wbzyl/ubuntu-git]
+# 5dcf4c4abe8a: Pushed
+# db584c622b50: Mounted from library/ubuntu
+# 52a7ea2bb533: Mounted from library/ubuntu
+# 52f389ea437e: Mounted from library/ubuntu
+# 88888b9b1b5b: Mounted from library/ubuntu
+# a94e0d5a7c40: Mounted from library/ubuntu
+# latest: digest: sha256:5593e3f344a6fcd3f865efe9a28394533b5a12769292b46e410f78b6a8d955be size: 1569
+----
