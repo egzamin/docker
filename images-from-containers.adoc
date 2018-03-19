@@ -18,7 +18,8 @@ exit
 docker images
 docker ps -a
 
-docker diff image-dev
+docker diff image-dev # this command prints very long list
+
 docker commit -a "@wbzyl" -m "Added git, man, and manpages" image-dev ubuntu-man-git
 
 docker images
