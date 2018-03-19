@@ -26,7 +26,8 @@ docker images
 docker run --rm ubuntu-man-git git version
 ----
 
-New image with *entrypoint*.
+## New image with *entrypoint*
+
 [source,bash]
 ----
 docker run --rm ubuntu-man-git
@@ -40,4 +41,11 @@ docker rm -vf command-git
 
 docker run --name command-git ubuntu-git version
 #=> git version 2.7.4
+----
+
+## Configuration of image attributes
+
+[source,bash]
+----
+TODO
 ----
