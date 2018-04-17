@@ -65,3 +65,48 @@ docker run hello_world
 
 
 ## Export & Import flat filesystem
+
+[source,go]
+.hello_world.go
+----
+package main
+import "fmt"
+func main() {
+  fmt.Println("Witaj świecie!")
+}
+----
+
+[source,[source,sh]
+----
+docker run --rm \
+    --volume  "$(pwd)":/usr/src/hello \
+    --workdir /usr/src/hello \
+    golang:1.10 go build -v
+
+file hello
+# hello: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked,
+#   with debug_info, not stripped
+----
+
+Put the _hello_ program into tarball:
+[source,sh]
+----
+tar -cf static_hello.tar hello
+----
+
+Now, we can import the tarball into any image. Below we use the scratch image.
+[source,sh]
+----
+docker import \
+  --change "ENTRYPOINT [\"/hello\"]" - \
+   scratch < static_hello.tar
+docker history scratch
+----
+
+[source,sh]
+----
+docker run scratch
+
+docker image tag scratch static_hello
+docker run static_hello
+----
