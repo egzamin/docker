@@ -1,0 +1,62 @@
+# Docker Images Techniques
+
+* Jeff Nickoloff.
+  https://www.manning.com/books/docker-in-action[Docker in Action].
+* Ian Miell & Aidan Hobson Sayers.
+  https://www.manning.com/books/docker-in-practice-second-edition[Docker in Practice, Second Edition] (MEAP).
+
+
+## Creating a small image running only one binary
+
+The _gcc_image_ folder contains this _Dockerfile_.
+[source,sh]
+----
+FROM gcc
+RUN echo 'int main() { puts("Witaj świecie!"); }' > hi.c
+RUN gcc -static hi.c -w -o hi
+----
+First, we are going to build hello_build image.
+[source,sh]
+----
+docker build --tag hello_build .
+docker images
+----
+
+Now, we run _hello_build_ image and extract the
+statically linked _hi_ binary from the stopped container.
+[source,sh]
+----
+docker run --name hello hello_build /bin/true
+docker cp hello:/hi ../minimal_container
+# cleanup – remove container and image
+docker ps --all
+docker rm hello
+docker rmi hello_build
+----
+
+Change to new directory with a „minimal” _Dockerfile_.
+[source,sh]
+----
+cd ../minimal_container
+cat Dockerfile
+# FROM scratch
+# ADD hi /hi
+# CMD ["/hi"]
+----
+and build new image with the statically compiled _hi_ program.
+[source,]
+----
+docker build --no-cache --tag hello_world .
+docker images
+# REPOSITORY   TAG     IMAGE ID      CREATED         SIZE
+# hello_world  latest  43e0dcebe58d  12 seconds ago  949kB
+----
+
+Finally, run the _/hi_ command in the hello_world container.
+[source,sh]
+----
+docker run hello_world
+----
+
+
+## Export & Import flat filesystem
