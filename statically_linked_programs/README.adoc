@@ -38,6 +38,11 @@ Change to new directory with a „minimal” _Dockerfile_.
 [source,sh]
 ----
 cd ../minimal_container
+file hi
+# hi: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked,
+#   for GNU/Linux 2.6.32, with debug_info, not stripped
+# strip hi
+# on Ubuntu system reduces the file size to 738_200 bytes
 cat Dockerfile
 # FROM scratch
 # ADD hi /hi
