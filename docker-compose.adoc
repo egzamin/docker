@@ -7,6 +7,7 @@
 * https://github.com/bitnami/bitnami-docker-rails[bitnami/bitnami-docker-rails].
 * https://zwischenzugs.com/2018/04/23/unprivileged-docker-builds-a-proof-of-concept/[Unprivileged Docker Builds – A Proof of Concept].
 
+## My Rails with PostgreSQL
 
 [source,sh]
 ----
@@ -21,18 +22,32 @@ docker images
 FROM ruby:2.5.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-RUN gem install rails pry-rails pg
-RUN rails new my_app --database=postgresql --skip-action-cable --skip-coffee --skip-test --skip-bundle
+RUN gem install rails pg
+RUN rails new myapp --database=postgresql --skip-action-cable --skip-coffee --skip-test --skip-bundle
 
-WORKDIR /my_app
+WORKDIR /myapp
+
+COPY database.yml config
 
 RUN bin/bundle install
 ----
+
+## My Rails App
+
+[source,sh]
+----
+cd ../my-rails-app
+docker images
+
+----
+
 
 ## Check
 
 [source,sh]
 ----
+bin/bundle check
+
 docker run --tty --interactive \
   --name rails-pg \
   my-rails-app:latest bash
