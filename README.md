@@ -24,6 +24,9 @@ Dokumentacja, samouczki, przykłady:
 * [Samples](https://docs.docker.com/samples/):
   * [Docker example for Rails development](https://docs.docker.com/compose/rails/)
   * [Mongo](https://docs.docker.com/samples/library/mongo/)
+* [Ian Miell](https://zwischenzugs.com) Blog:
+  * [Unprivileged Docker Builds – A Proof of Concept](https://zwischenzugs.com/2018/04/23/unprivileged-docker-builds-a-proof-of-concept/)
+
 
 
 ## Docker Machine w laboratoriach
