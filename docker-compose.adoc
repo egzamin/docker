@@ -36,9 +36,14 @@ RUN bin/bundle install
 
 [source,sh]
 ----
-cd ../my-rails-app
+cd ..
 docker images
-
+docker run docker run my-rails-app
+docker ps -a
+# cocky_hypatia -- container name of the running my-rails-app
+rm -rf my-rails-app
+docker cp cocky_hypatia:/myapp/ my-rails-app
+cd my-rails-app
 ----
 
 
