@@ -12,6 +12,7 @@
 ----
 cd my-rails-app
 docker build --tag my-rails-app .
+docker commit 
 ----
 
 [source,sh]
