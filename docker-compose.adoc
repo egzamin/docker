@@ -11,8 +11,8 @@
 [source,sh]
 ----
 cd my-rails-app
-docker build --tag my-rails-app .
-docker commit 
+docker build --no-cache --tag my-rails-app .
+docker images
 ----
 
 [source,sh]
@@ -27,6 +27,20 @@ RUN rails new my_app --database=postgresql --skip-action-cable --skip-coffee --s
 WORKDIR /my_app
 
 RUN bin/bundle install
+----
+
+## Check
+
+[source,sh]
+----
+docker run --tty --interactive \
+  --name rails-pg \
+  my-rails-app:latest bash
+
+docker rm -vf rails-pg
+
+# # docker exec -it rails-pg /bin/bash
+# --volume $(pwd):/my_app \
 ----
 
 
