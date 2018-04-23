@@ -46,3 +46,20 @@ docker rm -vf command-git
 docker run --name command-git ubuntu-git version
 #=> git version 2.7.4
 ----
+
+
+## Echo server
+
+MacOS, install *netcat*:
+[source,sh]
+----
+brew install netcat
+----
+
+
+### Server
+
+[source,sh]
+----
+docker container rm $(docker container ls -a -q)
+----
