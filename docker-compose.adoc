@@ -42,62 +42,53 @@ docker images
 docker run docker run my-rails-pg
 docker ps -a
 # cocky_hypatia -- container name of the running my-rails-app
+
 rm -rf my-rails-app
 docker cp cocky_hypatia:/myapp/ my-rails-pg
 cd my-rails-app
 cp ../my-rails-pg/{Dockerfile,docker-compose.yml} .
+
+docker container rm cocky_hypatia
 ----
 
 
-## Check
-
-[source,sh]
-----
-bin/bundle check
-
-docker run --tty --interactive \
-  --name rails-pg \
-  my-rails-app:latest bash
-
-docker rm -vf rails-pg
-
-# # docker exec -it rails-pg /bin/bash
-# --volume $(pwd):/my_app \
-----
-
-
-## TODO
-
-[source,bash]
-.docker-compose.yml
-----
-version: '3'
-services:
-  db:
-    image: postgres
-  web:
-    build: .
-    command: bin/rails s -p 3000 -b '0.0.0.0'
-    # volumes:
-    #   - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-----
-
-
-## Quickstart: Compose and Rails
+## Docker Compose and Rails – Quickstart
 
 * https://docs.docker.com/compose/rails/[Quickstart: Compose and Rails].
 
 [source,sh]
 ----
 docker-compose build
+#
+# update docker-compose.yml:
+# web:
+#   # build: .
+#   image: my-rails-pg
+#
+# db uses an image, skipping
+# web uses an image, skipping
+
+# docker-compose up
+# docker-compose exec web bin/rails db:create
+
+docker-compose run web bin/rails db:create
 
 docker-compose up
-docker-compose run web bin/rails db:create
+# localhost:3000 – Yay! You’re on Rails!
+
+docker compose down
+docker compose stop
 ----
+
+
+
+
+
+
+
+
+
+
 
 ## Images with ENTRYPOINT & CMD
 
