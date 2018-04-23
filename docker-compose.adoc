@@ -10,7 +10,7 @@
 
 [source,sh]
 ----
-cd my-rails-app
+cd my-rails-pg
 docker build --no-cache --tag my-rails-app .
 docker images
 ----
@@ -72,6 +72,7 @@ services:
 [source,sh]
 ----
 docker-compose build
+
 docker-compose up
 docker-compose run web bin/rails db:create
 ----
