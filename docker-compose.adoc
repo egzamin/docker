@@ -7,6 +7,30 @@
 * https://github.com/bitnami/bitnami-docker-rails[bitnami/bitnami-docker-rails].
 * https://zwischenzugs.com/2018/04/23/unprivileged-docker-builds-a-proof-of-concept/[Unprivileged Docker Builds – A Proof of Concept].
 
+
+[source,sh]
+----
+cd my-rails-app
+docker build --tag my-rails-app .
+----
+
+[source,sh]
+.my-rails-app/Dockerfile
+----
+FROM ruby:2.5.0
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+
+RUN gem install rails pry-rails pg
+RUN rails new my_app --database=postgresql --skip-action-cable --skip-coffee --skip-test --skip-bundle
+
+WORKDIR /my_app
+
+RUN bin/bundle install
+----
+
+
+## TODO
+
 [source,bash]
 .docker-compose.yml
 ----
