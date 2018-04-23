@@ -1,0 +1,48 @@
+# Docker Compose
+:source-highlighter: pygments
+:pygments-style: manni
+:icons: font
+:figure-caption!:
+
+* https://zwischenzugs.com/2018/04/23/unprivileged-docker-builds-a-proof-of-concept/[Unprivileged Docker Builds – A Proof of Concept].
+
+[source,bash]
+.docker-compose.yml
+----
+version: '3'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+----
+
+## Images with ENTRYPOINT & CMD
+
+[source,sh]
+.Dockerfile
+----
+# sample Dockerfile with entry point
+----
+
+[source,bash]
+----
+docker run --rm ubuntu-man-git
+# nothing appears to happen …
+
+docker run --name command-git --entrypoint git ubuntu-man-git
+docker ps -a
+docker commit -a "@wbzyl" -m "Set CMD git" command-git ubuntu-git
+
+docker rm -vf command-git
+
+docker run --name command-git ubuntu-git version
+#=> git version 2.7.4
+----
