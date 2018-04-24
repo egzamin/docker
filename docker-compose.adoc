@@ -14,9 +14,11 @@ How to generate a skeletal Rails installation without Ruby installed?
 [source,sh]
 ----
 cd rails-pg
-docker build --no-cache --tag my-rails-pg .
+docker build --no-cache --tag rails-pg .
 docker images
 ----
+
+https://docs.docker.com/engine/reference/builder/[Dockerfile reference].
 
 [source,sh]
 .Dockerfile
@@ -24,7 +26,7 @@ docker images
 FROM ruby:2.5.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-RUN gem install rails pg
+RUN gem install rails --version '~> 5.2.0'
 RUN rails new myapp --database=postgresql --skip-action-cable --skip-coffee --skip-test --skip-bundle
 
 WORKDIR /myapp
@@ -32,10 +34,39 @@ WORKDIR /myapp
 COPY database.yml config
 
 RUN bin/bundle install
+
+COPY Dockerfile .
+COPY docker-compose.yml .
+----
+
+https://docs.docker.com/compose/compose-file/[Compose file version 3 reference].
+
+[source,sh]
+----
+version: '3.6'
+
+services:
+
+  db:
+    image: postgres:10.3
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bin/rails server --port 3000 --binding '0.0.0.0'
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
 ----
 
 
-## My Rails App
+## My Rails with PostgreSQL App
 
 [source,sh]
 ----
