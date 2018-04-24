@@ -9,9 +9,11 @@
 
 ## My Rails with PostgreSQL
 
+How to generate a skeletal Rails installation without Ruby installed?
+
 [source,sh]
 ----
-cd my-rails-pg
+cd rails-pg
 docker build --no-cache --tag my-rails-pg .
 docker images
 ----
