@@ -101,6 +101,8 @@ FROM rails-pg:latest
 
 WORKDIR /myapp
 COPY . .
+# TODO: add bin/bundle check
+RUN bin/bundle install
 ----
 
 * https://docs.docker.com/compose/compose-file/[Compose file version 3 reference].
@@ -139,15 +141,75 @@ docker-compose exec web bin/rails db:migrate
 ----
 
 
-
-
 ### Add pry-rails gem
 
+Add _pry-rails_ gem to development group.
+[source,ruby]
+.Gemfile
+----
+group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'pry-rails'
+end
+----
+
+Now, update _Gemfile.lock_ and rebuild web service.
+[source,sh]
+----
+docker-compose up --build
+docker-compose exec web bin/rails console
+# Yay! You’re on Pry console
+----
 
 
+### Generate scaffold
 
-TODO: add new gem: pry-rails, run rails console, migrations
+[source,sh]
+----
+docker-compose exec web bin/rails generate scaffold post title:string body:text published:boolean
+docker-compose exec web bin/rails db:migrate
 
+docker-compose exec web bin/rails console
+# pry(main)> show-<press TAB>
+# pry(main)> show-models
+# localhost:3000/posts
+----
+
+
+### Routing
+
+Set the application Home Page:
+[source,ruby]
+.Update routing in config/routes.rb
+----
+Rails.application.routes.draw do
+  root 'posts#index'
+  resources :posts
+end
+----
+
+
+### Expose another port
+
+Update web service – expose port 4000 on the host.
+[source,yml]
+.docker-compose.yml
+----
+ports:
+  - "4000:3000"
+----
+
+Recreate web service.
+[source,sh]
+----
+docker-compose down # 3000
+docker-compose up   # 4000
+----
 
 
 
