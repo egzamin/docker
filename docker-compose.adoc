@@ -13,6 +13,8 @@ How to generate a skeletal Rails installation without Ruby installed?
 
 [source,sh]
 ----
+alias dk='docker-compose'
+
 cd rails-pg
 # docker build --tag rails-pg .
 docker build --no-cache --tag rails-pg .
