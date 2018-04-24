@@ -97,8 +97,7 @@ cd my-rails-app
 TODO: change Dockerfile
 [source,sh]
 ----
-FROM ruby:2.5.0
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+FROM rails-pg:latest
 
 WORKDIR /myapp
 COPY . .
@@ -106,24 +105,49 @@ COPY . .
 
 * https://docs.docker.com/compose/compose-file/[Compose file version 3 reference].
 * https://docs.docker.com/compose/reference/[Compose command-line reference].
+* https://docs.docker.com/compose/rails/[Quickstart: Compose and Rails]
+
+
+### View the Rails welcome page!
 
 [source,sh]
 ----
-docker-compose up --build
-
-# docker-compose up
-# docker-compose exec web bin/rails db:create
-
 docker-compose run web bin/rails db:create
 
-docker-compose up
+docker-compose up --build
 # localhost:3000 – Yay! You’re on Rails!
+----
+
+### Add pry-rails gem
+
+TODO.
+
+
+
+TODO: add new gem: pry-rails, run rails console, migrations
+
+
+### Stop the application
+
+
+### Restart the application
+
+
+### Rebuild the application
+
+
+### Compose commands
+
+[source,sh]
+----
+# docker-compose up
+# docker-compose exec web bin/rails db:migrate
 
 docker compose down
 docker compose stop
 ----
 
-TODO: add new gem: pry-rails, run rails console, migrations
+
 
 
 
