@@ -212,6 +212,16 @@ docker-compose down # 3000
 docker-compose up   #   80
 ----
 
+# Cleanup Images
+
+https://docs.docker.com/engine/reference/commandline/images/#filtering[Filtering].
+
+[source,sh]
+----
+docker images
+docker rmi $(docker images --filter "dangling=true" -q)
+docker rmi my-rails-app_web
+----
 
 
 
