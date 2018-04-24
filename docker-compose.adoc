@@ -14,6 +14,7 @@ How to generate a skeletal Rails installation without Ruby installed?
 [source,sh]
 ----
 cd rails-pg
+# docker build --tag rails-pg .
 docker build --no-cache --tag rails-pg .
 docker images
 ----
@@ -72,12 +73,12 @@ volumes:
 ----
 cd ..
 docker images
-docker run docker run my-rails-pg
+docker run rails-pg
 docker ps -a
-# cocky_hypatia -- container name of the running my-rails-app
+# quizzical_mccarthy -- container name of the running my-rails-app
 
 rm -rf my-rails-app
-docker cp cocky_hypatia:/myapp/ my-rails-pg
+docker cp quizzical_mccarthy:/myapp/ my-rails-pg
 cd my-rails-app
 cp ../my-rails-pg/{Dockerfile,docker-compose.yml} .
 
