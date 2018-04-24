@@ -10,5 +10,6 @@ COPY database.yml config
 
 RUN bin/bundle install
 
+COPY .dockerignore .
 COPY Dockerfile .
 COPY docker-compose.yml .

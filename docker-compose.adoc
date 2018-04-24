@@ -38,6 +38,7 @@ RUN bin/bundle install
 
 COPY Dockerfile .
 COPY docker-compose.yml .
+COPY .dockerignore .
 ----
 
 https://docs.docker.com/compose/compose-file/[Compose file version 3 reference].
@@ -75,14 +76,17 @@ cd ..
 docker images
 docker run rails-pg
 docker ps -a
-# quizzical_mccarthy -- container name of the running my-rails-app
+# brave_lovelace -- container name of the running my-rails-app
 
 rm -rf my-rails-app
-docker cp quizzical_mccarthy:/myapp/ my-rails-app
-cd my-rails-app
-cp ../my-rails-pg/{Dockerfile,docker-compose.yml} .
+docker cp brave_lovelace:/myapp/ my-rails-app
+docker container rm brave_lovelace
 
-docker container rm cocky_hypatia
+cd my-rails-app
+
+# TODO: rename Dockerfile -> Dockerfile-rails-pg
+# TODO: add new Dockerfile
+# TODO: add _.dockerignore_ file
 ----
 
 
@@ -90,18 +94,22 @@ docker container rm cocky_hypatia
 
 * https://docs.docker.com/compose/rails/[Quickstart: Compose and Rails].
 
+TODO: change Dockerfile
 [source,sh]
 ----
-docker-compose build
-#
-# update docker-compose.yml:
-#
-# web:
-#   # build: .
-#   image: my-rails-pg
-#
-# db uses an image, skipping
-# web uses an image, skipping
+FROM ruby:2.5.0
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+
+WORKDIR /myapp
+COPY . .
+----
+
+* https://docs.docker.com/compose/compose-file/[Compose file version 3 reference].
+* https://docs.docker.com/compose/reference/[Compose command-line reference].
+
+[source,sh]
+----
+docker-compose up --build
 
 # docker-compose up
 # docker-compose exec web bin/rails db:create
