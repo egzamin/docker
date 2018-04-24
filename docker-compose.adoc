@@ -78,7 +78,7 @@ docker ps -a
 # quizzical_mccarthy -- container name of the running my-rails-app
 
 rm -rf my-rails-app
-docker cp quizzical_mccarthy:/myapp/ my-rails-pg
+docker cp quizzical_mccarthy:/myapp/ my-rails-app
 cd my-rails-app
 cp ../my-rails-pg/{Dockerfile,docker-compose.yml} .
 
