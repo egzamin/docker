@@ -118,41 +118,35 @@ docker-compose up --build
 # localhost:3000 – Yay! You’re on Rails!
 ----
 
+### Start & Restart, Stop and Rebuild the application
+
+[source,sh]
+----
+docker-compose up
+docker compose stop
+docker compose down
+----
+
+
+### Run and Exec commands
+
+[source,sh]
+----
+docker-compose run web bin/rails db:migrate
+
+# docker-compose up
+docker-compose exec web bin/rails db:migrate
+----
+
+
+
+
 ### Add pry-rails gem
 
-TODO.
 
 
 
 TODO: add new gem: pry-rails, run rails console, migrations
-
-
-### Stop the application
-
-
-### Restart the application
-
-
-### Rebuild the application
-
-
-### Compose commands
-
-[source,sh]
-----
-# docker-compose up
-# docker-compose exec web bin/rails db:migrate
-
-docker compose down
-docker compose stop
-----
-
-
-
-
-
-
-
 
 
 
