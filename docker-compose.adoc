@@ -24,7 +24,7 @@ https://docs.docker.com/engine/reference/builder/[Dockerfile reference].
 [source,sh]
 .Dockerfile
 ----
-FROM ruby:2.5.0
+FROM ruby:2.5.1
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 RUN gem install rails --version '~> 5.2.0'
@@ -219,8 +219,15 @@ https://docs.docker.com/engine/reference/commandline/images/#filtering[Filtering
 [source,sh]
 ----
 docker images
-docker rmi $(docker images --filter "dangling=true" -q)
+docker rmi $(docker images --all --filter "dangling=true" -q)
 docker rmi my-rails-app_web
+docker images --all
+docker rmi rails-pg
+docker images --all
+
+# docker images --all | grep "^<none" | awk '{print $3}'
+# docker images --all | grep '^<none>' | gsed 's/\s\+/ /g' | cut -d ' ' -f 3
+# docker rmi $(docker images --all | grep '^<none>' | gsed 's/\s\+/ /g' | cut -d ' ' -f 3)
 ----
 
 
