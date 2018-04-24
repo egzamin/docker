@@ -136,7 +136,8 @@ docker compose down
 ----
 docker-compose run web bin/rails db:migrate
 
-# docker-compose up
+# or
+docker-compose up
 docker-compose exec web bin/rails db:migrate
 ----
 
@@ -196,19 +197,19 @@ end
 
 ### Expose another port
 
-Update web service – expose port 4000 on the host.
+Update web service – expose port 80 on the host.
 [source,yml]
 .docker-compose.yml
 ----
 ports:
-  - "4000:3000"
+  - "80:3000"
 ----
 
 Recreate web service.
 [source,sh]
 ----
 docker-compose down # 3000
-docker-compose up   # 4000
+docker-compose up   #   80
 ----
 
 
